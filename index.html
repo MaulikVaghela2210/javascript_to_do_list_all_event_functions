@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <style>
+        .container{
+            text-align: center;
+            margin: auto;
+            width: 500px;
+            height: 500px;
+            background-color: azure;
+            border: 2px solid black;
+            padding: 15px;
+        }
+        .done{
+            text-decoration: line-through;
+            color: red;
+        }
+        .task{
+            display: flex;
+            justify-content: space-between;
+            margin:5px 0;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .inputtx{
+            all:unset;
+            padding: 15px;
+            background-color: black;
+            color: white;
+            font-weight: 600;
+            /* border-radius: 10px; */
+        }
+        .inputtx::placeholder{
+            color: rgb(173, 173, 173);
+        }
+
+        button{
+            all: unset;
+            padding: 15px;
+            background-color: blue;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+        }
+        span{
+            display: flex;
+            align-items: center;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <input class="inputtx" type="text" id="Enter" placeholder="Enter Task"/>
+            <button id="addtask">Add Task</button>
+        </div>
+        <div class="bot">
+            <ul id="items"></ul>
+        </div>
+       
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+        let Entereddata = document.getElementById('Enter');
+        let addtaskbtn = document.getElementById('addtask');
+        let taskList = document.getElementById('items');
+
+        function addTaskfun(){
+            let tasktext = Entereddata.value.trim();
+            if(tasktext === "") return;
+
+
+            let li = document.createElement("li");
+            li.classList.add("task");
+
+            let span = document.createElement('span');
+            span.innerText = tasktext;
+
+            let donebtn = document.createElement("button");
+            donebtn.innerText = "Done";
+            
+            donebtn.addEventListener("click", function(){
+                span.classList.toggle("done");
+            })
+
+          
+            let Editbtn = document.createElement("button");
+            Editbtn.innerText = "Edit";
+
+            Editbtn.addEventListener("click",function(){
+                let newText = prompt("Edit Task:", span.innerText);
+                if(newText) span.innerText = newText;
+            })
+
+            let deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "Delete";
+            deleteBtn.addEventListener("click" , function(){
+                taskList.removeChild(li);
+            })
+
+        
+    
+            li.appendChild(span);
+            li.appendChild(donebtn);
+            li.appendChild(Editbtn);
+            li.appendChild(deleteBtn);
+            taskList.appendChild(li);
+
+            Entereddata.value = "";
+        }
+
+
+     
+          
+      
+        
+        addtaskbtn.addEventListener("click",addTaskfun);
+        Entereddata.addEventListener("keypress", function(event){
+            if(event.key === "Enter"){
+                addTaskfun();
+            }
+        });
+
+
+    </script>
+</body>
+</html>
